@@ -21,5 +21,5 @@ setup(
     },
     license='MIT',
     packages=find_packages(include=['spring_config_client', 'spring_config_client.*']),
-    install_requires=['requests==2.28.1', 'config-client==1.4.0'],
+    install_requires=['requests==2.28.1', 'config-client==1.3.1'],
 )
