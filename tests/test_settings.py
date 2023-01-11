@@ -51,6 +51,11 @@ def test_settings_get_key(mock_config_client, auth, config, expected_value):
         ({}, {'KEY': '${LOCAL_KEY}'}, None),
         ({'LOCAL_KEY': 'local_value'}, {}, None),
         ({'LOCAL_KEY': 'http://someurl{}"'}, {'KEY': '${LOCAL_KEY}'}, 'http://someurl{}"'),
+        (
+            {},
+            {'KEY': "${SALEOR_URL:https://saleor-asia-uat.wegotwe.com/graphql/}"},
+            "https://saleor-asia-uat.wegotwe.com/graphql/"
+        )
     ]
 )
 @patch('spring_config_client.conf.settings.ConfigClient')
