@@ -46,6 +46,7 @@ def test_settings_get_key(mock_config_client, auth, config, expected_value):
     [
         ({'LOCAL_KEY': 'local_value'}, {'KEY': '${LOCAL_KEY}'}, 'local_value'),
         ({'LOCAL_KEY': 'local_value'}, {'KEY': '${LOCAL_KEY:default}'}, 'local_value'),
+        ({}, {'KEY': '${LOCAL_KEY:secure-internal-api-key}'}, 'secure-internal-api-key'),
         ({}, {'KEY': '${LOCAL_KEY:test}'}, 'test'),
         ({}, {'KEY': '${LOCAL_KEY}'}, None),
         ({'LOCAL_KEY': 'local_value'}, {}, None),
