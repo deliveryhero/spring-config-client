@@ -69,7 +69,7 @@ def test_settings_get_key_from_environ(
     "environ,config,expected_value",
     [
         ({'LOCAL_KEY': '1'}, {'KEY': {"KEY": '${LOCAL_KEY}'}}, '1'),
-        ({}, {'KEY': {"KEY": '${LOCAL_KEY}'}}, None),
+        ({}, {'KEY': {"KEY": '${LOCAL_KEY:1}'}}, '1'),
     ]
 )
 @patch('spring_config_client.conf.settings.ConfigClient')
@@ -83,6 +83,25 @@ def test_settings_get_key_from_nested_environ(
     settings = Settings()
 
     assert settings.KEY.KEY == expected_value
+
+
+@pytest.mark.parametrize(
+    "environ,config,expected_value",
+    [
+        ({}, {'KEY': {"KEY": {"KEY": '${LOCAL_KEY:1}'}}}, '1'),
+    ]
+)
+@patch('spring_config_client.conf.settings.ConfigClient')
+@patch('spring_config_client.conf.resolver.os')
+def test_settings_get_key_from_extra_nested_environ(
+    mock_os, mock_config_client, auth, config, environ, expected_value
+):
+    mock_os.environ = environ
+    mock_config_client().config = config
+
+    settings = Settings()
+
+    assert settings.KEY.KEY.KEY == expected_value
 
 
 @pytest.mark.parametrize(
