@@ -19,7 +19,7 @@ class Resolver:
         :return:
         """
         if isinstance(value, dict):
-            return DotDict(value)
+            return DotDictResolver(value)
 
         if not isinstance(value, str):
             return value
@@ -40,3 +40,13 @@ class Resolver:
             return env_value
 
         return default_value
+
+    @staticmethod
+    def resolve_wrapper(func):
+        def inner(*args, **kwargs):
+            return Resolver.resolve(func(*args, **kwargs))
+        return inner
+
+
+class DotDictResolver(DotDict):
+    __getattr__ = Resolver.resolve_wrapper(dict.get)
