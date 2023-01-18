@@ -76,6 +76,8 @@ def test_settings_get_key_from_environ(
     [
         ({'LOCAL_KEY': '1'}, {'KEY': {"KEY": '${LOCAL_KEY}'}}, '1'),
         ({}, {'KEY': {"KEY": '${LOCAL_KEY:1}'}}, '1'),
+        ({}, {'KEY': {"KEY": "${KEY:{'hello':'world'}}"}}, "{'hello':'world'}"),
+        ({}, {'KEY': {"KEY": "${KEY:[]}"}}, "[]"),
     ]
 )
 @patch('spring_config_client.conf.settings.ConfigClient')
