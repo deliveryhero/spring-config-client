@@ -24,7 +24,7 @@ class Resolver:
         if not isinstance(value, str):
             return value
 
-        matcher = r"\$\{(\w*):?([\w\/\.:\{\}\[\]\'\",-]*)\}"
+        matcher = r"\$\{(\w*):?([\w\/\.:\{\}\[\]\'\",\ -]*)\}"
         result = re.search(matcher, value)
 
         if not result:
