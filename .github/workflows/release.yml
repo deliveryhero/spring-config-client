@@ -8,7 +8,6 @@ on:
 jobs:
   unit-tests:
     runs-on: ubuntu-20.04
-    environment: staging
     steps:
       - name: "Checkout ${{ github.ref }} ( ${{ github.sha }} )"
         uses: actions/checkout@v3
